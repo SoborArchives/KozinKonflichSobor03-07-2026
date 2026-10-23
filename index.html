@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Посмотреть видео</title>
+    <style>
+        /* Черный фон и центрирование содержимого */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0d1117;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Контейнер плеера */
+        .video-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Большая кнопка "Смотреть" поверх видео */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            z-index: 10;
+        }
+
+        .play-overlay:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Стили самой кнопки */
+        .play-button {
+            background: #238636; /* Зеленый цвет в стиле GitHub */
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .play-button:hover {
+            background: #2ea44f;
+            transform: scale(1.05);
+        }
+
+        /* Скрываем оверлей после запуска */
+        .play-overlay.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container">
+        <!-- Кнопка поверх плеера -->
+        <div class="play-overlay" id="videoOverlay">
+            <button class="play-button">▶ Смотреть видео</button>
+        </div>
+
+        <!-- Тег плеера. Замените "your-video.mp4" на имя вашего видеофайла -->
+        <video id="myVideo" src="video.mp4" controls playsinline></video>
+    </div>
+
+    <script>
+        const video = document.getElementById('myVideo');
+        const overlay = document.getElementById('videoOverlay');
+
+        // Логика: при клике на оверлей или кнопку запускаем видео со звуком и прячем кнопку
+        overlay.addEventListener('click', () => {
+            video.play();
+            overlay.classList.add('hidden');
+        });
+    </script>
+
+</body>
+</html>
